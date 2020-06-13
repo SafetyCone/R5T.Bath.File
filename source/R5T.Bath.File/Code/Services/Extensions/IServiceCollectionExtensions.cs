@@ -10,7 +10,7 @@ namespace R5T.Bath.File
     public static class IServiceCollectionExtensions
     {
         public static IServiceCollection AddFileHumanOutput(this IServiceCollection services,
-            ServiceAction<IHumanOutputFilePathProvider> addHumanOutputFilePathProvider)
+            IServiceAction<IHumanOutputFilePathProvider> addHumanOutputFilePathProvider)
         {
             services
                 .AddSingleton<IHumanOutput, FileHumanOutput>()
@@ -21,9 +21,9 @@ namespace R5T.Bath.File
         }
 
         public static ServiceAction<IHumanOutput> AddFileHumanOutputAction(this IServiceCollection services,
-            ServiceAction<IHumanOutputFilePathProvider> addHumanOutputFilePathProvider)
+            IServiceAction<IHumanOutputFilePathProvider> addHumanOutputFilePathProvider)
         {
-            var serviceAction = new ServiceAction<IHumanOutput>(() => services.AddFileHumanOutput(addHumanOutputFilePathProvider));
+            var serviceAction = ServiceAction<IHumanOutput>.New(() => services.AddFileHumanOutput(addHumanOutputFilePathProvider));
             return serviceAction;
         }
 
@@ -37,9 +37,9 @@ namespace R5T.Bath.File
             return services;
         }
 
-        public static ServiceAction<IHumanOutputFilePathProvider> AddSpecifiedHumanOutputFilePathProviderAction(this IServiceCollection services)
+        public static IServiceAction<IHumanOutputFilePathProvider> AddSpecifiedHumanOutputFilePathProviderAction(this IServiceCollection services)
         {
-            var serviceAction = new ServiceAction<IHumanOutputFilePathProvider>(() => services.AddSpecifiedHumanOutputFilePathProvider());
+            var serviceAction = ServiceAction<IHumanOutputFilePathProvider>.New(() => services.AddSpecifiedHumanOutputFilePathProvider());
             return serviceAction;
         }
     }
