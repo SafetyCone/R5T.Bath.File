@@ -3,10 +3,13 @@ using System.IO;
 
 using R5T.Bath.Default;
 
+using R5T.T0064;
+
 
 namespace R5T.Bath.File
 {
-    public class FileHumanOutput : TextWriterHumanOutput, IHumanOutput, IDisposable
+    [ServiceImplementationMarker]
+    public class FileHumanOutput : TextWriterHumanOutput, IHumanOutput, IDisposable, IServiceImplementation
     {
         #region IDisposable
 
@@ -40,6 +43,7 @@ namespace R5T.Bath.File
             this.Setup(humanOutputFilePath);
         }
 
+        [ServiceImplementationConstructorMarker]
         public FileHumanOutput(IHumanOutputFilePathProvider humanOutputFilePathProvider)
         {
             var humanOutputFilePath = humanOutputFilePathProvider.GetHumanOutputFilePath();
